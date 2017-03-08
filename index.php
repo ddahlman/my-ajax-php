@@ -1,18 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-<title>ajax test</title>
+<?php 
+include_once('./includes/header.php');
+include('./admin/config.php');
 
-<link href='css/bootstrap.min.css' rel='stylesheet'>
-<link href='css/style.css' rel='stylesheet'>
-</head>
- <body>
+$connection = mysqli_connect($dbhost, $dbusername, $dbpassword, $db);
 
-  <script src='js/jquery-3.1.1.min.js'></script>
-  <script src='js/bootstrap.min.js'></script>
-  <script src='js/ajax.js'></script>
- </body>
-</html>
+
+$page = isset($_GET['page']) ? $_GET['page'] : "";
+
+switch ($page) {
+  case 'home':
+    include_once("home.php");
+    break;
+  
+   case 'users':
+    include_once("users.php");
+    break;
+
+  case 'admin':
+    header("Location: ./admin/home_index.php");
+    break;
+
+  default:
+    include_once("home.php");
+    break;
+}
+
+include('./includes/footer.php');
+?>
