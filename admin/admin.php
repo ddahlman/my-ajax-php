@@ -6,7 +6,7 @@
       <textarea class='form-control' name="txt" id="txt"></textarea>
     </div>
     <div class='btn-group'>
-      <button class='btn btn-info btn-sm'>ändra</button>
+      <button class='btn btn-info btn-sm'>spara ändringar</button>
       <button class='btn btn-danger btn-sm'>ta bort</button>
     </div>
   </div>
