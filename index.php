@@ -2,9 +2,6 @@
 include_once('./includes/header.php');
 include('./admin/config.php');
 
-$connection = mysqli_connect($dbhost, $dbusername, $dbpassword, $db);
-
-
 $page = isset($_GET['page']) ? $_GET['page'] : "";
 
 switch ($page) {
