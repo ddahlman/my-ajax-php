@@ -2,5 +2,5 @@
 $dbusername = "root";
 $dbhost = "localhost";
 $dbpassword = "";
-$db = "ajax-test";
+$db = "ajaxtest";
 ?>
