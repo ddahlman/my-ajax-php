@@ -1,7 +1,6 @@
 <?php
 include('config.php');
 include('admin_header.php');
-$connection = mysqli_connect($dbhost, $dbusername, $dbpassword, $db);
 ?>
 
   <?php
@@ -15,7 +14,7 @@ switch ($page) {
     case 'users':
         include_once("admin_users.php");
         break;
-
+    
     case 'home-page':
         header("Location: ../index.php");
         break;

@@ -1,6 +1,8 @@
 <?php
-$dbusername = "root";
 $dbhost = "localhost";
+$dbusername = "root";
 $dbpassword = "";
-$db = "ajax-test";
+$db = "ajaxtest";
+
+$connection = mysqli_connect($dbhost, $dbusername, $dbpassword, $db);
 ?>
