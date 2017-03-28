@@ -1,5 +1,4 @@
 <?php
-include('../api/config.php');
 include('admin_header.php');
 ?>
 
