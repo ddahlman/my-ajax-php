@@ -5,6 +5,7 @@
 
 class Resource{
     
+    
     #protected variables are visible for the current class and classes inheriting from it
         protected $id, $request;
     

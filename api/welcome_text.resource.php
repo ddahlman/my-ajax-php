@@ -1,4 +1,5 @@
 <?php
+
 #
 # Den här klassen ska köras om vi anropat resursen user i vårt API genom /?/user
 #
@@ -94,4 +95,5 @@ class _welcome_text extends Resource{ // Klassen ärver egenskaper från den gen
             echo "No resource given";
         }
     }
+    
 }

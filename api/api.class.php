@@ -3,6 +3,7 @@
 # Den här klassen startar upp vårt API och hämtar allt det vi behöver från själva HTTP-anropet
 #
 class API{
+    
     private	$method, // GET, POSt, PUT, DELETE ...
     $input, // Data sent with request
     $resource, // REST Resource to call
@@ -35,4 +36,5 @@ class API{
         # Save the rest of the path
         $this->request = $request;
     }
+    
 }
