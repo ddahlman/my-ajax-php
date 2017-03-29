@@ -76,14 +76,15 @@ class _welcome_text extends Resource{ // Klassen ärver egenskaper från den gen
 		# I denna funktion uppdateras en specifik user med den input vi fått
 		# Observera att allt uppdaterad varje gång och att denna borde byggas om så att bara det vi skickar med uppdateras
 		if($this->id){
-			$text = mysqli_real_escape_string($connection, $input['text']);
+			if(isset($input["text"])){
+			$text = mysqli_real_escape_string($connection, $input["text"]);
 			
-			$query = "
-				UPDATE welcome_text 
+			$query = "UPDATE welcome_text 
 				SET text = '$text'
-				WHERE id = $this->id
-			";
+				WHERE id = $this->id";
+
 			mysqli_query($connection, $query);
+			}
 		}else{
 			echo "No resource given";
 		}

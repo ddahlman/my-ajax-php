@@ -1,6 +1,6 @@
 <?php
 include_once('./includes/header.php');
-include('./api/config.php');
+/*include('./api/config.php');*/
 
 $page = isset($_GET['page']) ? $_GET['page'] : "";
 
