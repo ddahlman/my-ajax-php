@@ -1,19 +1,24 @@
 $(document).ready(function () {
-    var text = $('#txt').val();
 
-    $('#save-text').on('click', function () {
-        $.ajax({
-            url: "http://localhost/my-ajax-php/api/?/welcome_text/1",
-            type: "PUT",
-            data: {
-                text: text
-            },
-            success: function (response) {
-                console.log(response);
-                $('#txt').html(response);
-            }
-
-        });
+    $.ajax({
+        url: "../api/?/welcome_text/1",
+        success: (result) => {
+            console.log(result.mytext);
+            $('#txt').html(result.mytext);
+        }
     });
 
+    $('#save-text').on('click', function () {
+        var text = $('#txt').val();
+        $.ajax({
+            url: "../api/?/welcome_text/1",
+            method: "PUT",
+            data: {
+                mytext: text
+            },
+            success: (result) => {
+                console.log(result.mytext);
+            }
+        });
+    });
 });
