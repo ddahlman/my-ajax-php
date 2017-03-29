@@ -71,7 +71,7 @@ class _welcome_text extends Resource{ // Klassen ärver egenskaper från den gen
     }
     # Denna funktion körs om vi anropat resursen genom HTTP-metoden PUT
     function PUT($input, $connection){
-        # I denna funktion uppdateras en specifik user med den input vi fått
+        # I denna funktion uppdateras en specifik mytext med den input vi fått
         # Observera att allt uppdateras varje gång och att denna borde byggas om så att bara det vi skickar med uppdateras
         if($this->id){
             $this->mytext = escape($input['mytext']);
