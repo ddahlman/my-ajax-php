@@ -4,7 +4,7 @@
 # 
 class _user extends Resource{ // Klassen ärver egenskaper från den generella klassen Resource som finns i resource.class.php
 	# Här deklareras de variabler/members som objektet ska ha
-	public $name, $id, $users, $request;
+	public $name, $address, $phone, $email, $id, $users, $request;
 	# Här skapas konstruktorn som körs när objektet skapas
 	function __construct($resource_id, $request){
 		
@@ -37,18 +37,16 @@ class _user extends Resource{ // Klassen ärver egenskaper från den generella k
 	# Den här funktionen är privat och kan bara köras inom objektet, inte utanför
 	private function getUserData($input, $connection){
 		if($this->id){ // Om vår URL innehåller ett ID på resursen hämtas bara den usern
-			$query = "
-				SELECT * 
+			$query = "SELECT * 
 				FROM users 
-				WHERE id = $this->id
-			";
+				WHERE id = $this->id";
+
 			$result = mysqli_query($connection, $query);
 			$user = mysqli_fetch_assoc($result);
 			$this->name = $user['name'];
 			
 		}else{ // om vår URL inte innehåller ett ID hämtas alla users
-			$query = "
-				SELECT * 
+			$query = "SELECT * 
 				FROM users
 			";
 			$result = mysqli_query($connection, $query);
@@ -62,13 +60,15 @@ class _user extends Resource{ // Klassen ärver egenskaper från den generella k
 	# Denna funktion körs om vi anropat resursen genom HTTP-metoden POST
 	function POST($input, $connection){
 		# I denna funktion skapar vi en ny user med den input vi fått
-		$name = mysqli_real_escape_string($connection, $input['name']);
+		$this->name = escape($input['name']);
+		$this->address = escape($input['address']);
+		$this->phone = escape($input['phone']);
+		$this->email = escape($input['email']);
 		
-		$query = "
-			INSERT INTO users 
-			(name) 
-			VALUES ('$name')
-		";
+		$query = "INSERT INTO users 
+			(name, address, phone, email) 
+			VALUES ('$this->name', '$this->address', '$this->phone', '$this->email')";
+			
 		mysqli_query($connection, $query);
 	}
 	# Denna funktion körs om vi anropat resursen genom HTTP-metoden PUT
