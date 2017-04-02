@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    /*GET----welcome text-------------------------------*/
     $.ajax({
         url: "../api/?/welcome_text",
         success: (result) => {
@@ -8,7 +8,7 @@ $(document).ready(function () {
             $('#txt').html(txt);
         }
     });
-
+    /*PUT----update welcome text-------------------------------*/
     $('#save-text').on('click', function () {
         var text = $('#txt').val();
 
@@ -23,7 +23,7 @@ $(document).ready(function () {
             }
         });
     });
-
+    /*PUT---- delete welcome text-------------------------------*/
     $('#delete-text').on('click', function () {
         var text = '';
         $.ajax({
@@ -37,5 +37,51 @@ $(document).ready(function () {
                 $('#txt').html(result.mytext);
             }
         });
+    });
+    /*GET----users-------------------------------*/
+    $.get('../api/?/user')
+        .then((response) => {
+            console.log(response.users);
+            var userinfo = response.users.map((user) => {
+                var info = `<div class='well'>
+                            <ul>
+                            <li>${user.name}</li>
+                            <li>${user.address}</li>
+                            <li>${user.phone}</li>
+                            <li>${user.email}</li>
+                            </ul>
+                            </div>`;
+
+                return info;
+            });
+
+            $('#admin-users').html(userinfo);
+        });
+    /*POST----users-------------------------------*/
+    $('#saveUser').on('click', function () {
+        var users = {
+            name: $('#fullName').val(),
+            address: $('#address').val(),
+            phone: $('#phone').val(),
+            email: $('#email').val()
+        };
+        $.post('../api/?/user', users)
+            .then((response) => {
+                var userinfo = [];
+                userinfo.push(response);
+                var users = userinfo.map((user) => {
+                    var info = `<div class='well'>
+                            <ul>
+                            <li>${user.name}</li>
+                            <li>${user.address}</li>
+                            <li>${user.phone}</li>
+                            <li>${user.email}</li>
+                            </ul>
+                            </div>`;
+
+                    return info;
+                });
+                $('#admin-users').append(users);
+            });
     });
 });
