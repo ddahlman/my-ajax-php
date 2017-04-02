@@ -50,6 +50,9 @@ $(document).ready(function () {
                             <li>${user.phone}</li>
                             <li>${user.email}</li>
                             </ul>
+                            <input type='hidden' value='${user.id}'>
+                            <button class='btn btn-info btn-sm'>ändra</button>
+                            <button class='btn btn-danger btn-sm delete'>radera användare</button>
                             </div>`;
 
                 return info;
@@ -58,7 +61,7 @@ $(document).ready(function () {
             $('#admin-users').html(userinfo);
         });
     /*POST----users-------------------------------*/
-    $('#saveUser').on('click', function () {
+    $('#saveUser').on('click', () => {
         var users = {
             name: $('#fullName').val(),
             address: $('#address').val(),
@@ -77,11 +80,31 @@ $(document).ready(function () {
                             <li>${user.phone}</li>
                             <li>${user.email}</li>
                             </ul>
+                            <input type='hidden' value='${user.id}'>
+                            <button class='btn btn-info btn-sm'>ändra</button>
+                            <button class='btn btn-danger btn-sm delete'>radera användare</button>
                             </div>`;
 
                     return info;
                 });
                 $('#admin-users').append(users);
             });
+    });
+
+    /*DELETE----user------------------------------*/
+    $('.container').on('click', '.delete', function () {
+
+        let id = this.parentNode.childNodes[3].value;
+
+        $.ajax({
+            url: "../api/?/user/" + id,
+            method: "DELETE"
+
+        }).then((response) => {
+
+            var remainder = Array.from(response).filter(user => user.id !== id)
+            console.log(remainder);
+            $('#admin-users').html(remainder);
+        });
     });
 });
