@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    /*GET text from db-----------------------------------------*/
+    /*GET----welcome text-------------------------------*/
+
     $.ajax({
         url: "../api/?/welcome_text",
         success: (result) => {
@@ -8,7 +9,8 @@ $(document).ready(function () {
             $('#txt').html(txt);
         }
     });
-    /*PUT update text-------------------------------------------*/
+    /*PUT----update welcome text-------------------------------*/
+
     $('#save-text').on('click', function () {
         var text = $('#txt').val();
 
@@ -23,7 +25,8 @@ $(document).ready(function () {
             }
         });
     });
-    /*PUT------------with delete text--------------*/
+    /*PUT---- delete welcome text-------------------------------*/
+
     $('#delete-text').on('click', function () {
         var text = '';
         $.ajax({
@@ -38,7 +41,9 @@ $(document).ready(function () {
             }
         });
     });
-    /*GET users----------------------------------------*/
+
+    /*GET----users-------------------------------*/
+
     $.get('../api/?/user')
         .then((response) => {
             console.log(response.users);
@@ -50,6 +55,11 @@ $(document).ready(function () {
                             <li>${user.phone}</li>
                             <li>${user.email}</li>
                             </ul>
+
+                            <input type='hidden' value='${user.id}'>
+                            <button class='btn btn-info btn-sm'>ändra</button>
+                            <button class='btn btn-danger btn-sm delete'>radera användare</button>
+
                             </div>`;
 
                 return info;
@@ -57,21 +67,53 @@ $(document).ready(function () {
 
             $('#admin-users').html(userinfo);
         });
-    $('#save-user').on('click', function () {
-        var jsonarr = [];
-        var info = {
-            name: $('#name').val(),
-            address: $('#adress').val(),
+
+    /*POST----users-------------------------------*/
+    $('#saveUser').on('click', () => {
+        var users = {
+            name: $('#fullName').val(),
+            address: $('#address').val(),
             phone: $('#phone').val(),
             email: $('#email').val()
         };
-        jsonarr.push(info);
-        $.post('../api/?/user', {
-                data: JSON.stringify(jsonarr)
-            })
+        $.post('../api/?/user', users)
             .then((response) => {
-                console.log(response.users);
+                var userinfo = [];
+                userinfo.push(response);
+                var users = userinfo.map((user) => {
+                    var info = `<div class='well'>
+                            <ul>
+                            <li>${user.name}</li>
+                            <li>${user.address}</li>
+                            <li>${user.phone}</li>
+                            <li>${user.email}</li>
+                            </ul>
+                            <input type='hidden' value='${user.id}'>
+                            <button class='btn btn-info btn-sm'>ändra</button>
+                            <button class='btn btn-danger btn-sm delete'>radera användare</button>
+                            </div>`;
+
+                    return info;
+                });
+                $('#admin-users').append(users);
             });
+    });
+
+    /*DELETE----user------------------------------*/
+    $('.container').on('click', '.delete', function () {
+
+        let id = this.parentNode.childNodes[3].value;
+
+        $.ajax({
+            url: "../api/?/user/" + id,
+            method: "DELETE"
+
+        }).then((response) => {
+
+            var remainder = Array.from(response).filter(user => user.id !== id)
+            console.log(remainder);
+            $('#admin-users').html(remainder);
+        });
     });
 
 });
