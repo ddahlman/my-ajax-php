@@ -68,6 +68,7 @@ $(document).ready(function () {
                 $('#admin-users').html(userinfo);
             });
     }
+
     /*POST----users-------------------------------*/
     $('#saveUser').on('click', () => {
         var users = {
@@ -79,30 +80,11 @@ $(document).ready(function () {
         $.post('../api/?/user', users)
             .then(() => {
                 getUsers();
-                /*  console.log(response);
-                  var userinfo = [];
-                  userinfo.push(response);
-                  var users = userinfo.map((user) => {
-                      var info = `<div class='well'>
-                          <ul>
-                          <li>${user.name}</li>
-                          <li>${user.address}</li>
-                          <li>${user.phone}</li>
-                          <li>${user.email}</li>
-                          </ul>
-                          <input type='hidden' value='${user.id}'>
-                          <button class='btn btn-info btn-sm'>ändra</button>
-                          <button class='btn btn-danger btn-sm delete'>radera användare</button>
-                          </div>`;
-
-                      return info;
-                  });
-                  console.log(users);
-                  $('#admin-users').append(users);*/
             });
         var inputs = document.querySelectorAll('input[type=text]');
         Array.from(inputs).map(inp => inp.value = "");
     });
+
 
     /*DELETE----user------------------------------*/
     $('.container').on('click', '.delete', function () {
