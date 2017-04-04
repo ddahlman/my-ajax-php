@@ -41,14 +41,14 @@ $(document).ready(function () {
             }
         });
     });
-
+    getUsers();
     /*GET----users-------------------------------*/
-
-    $.get('../api/?/user')
-        .then((response) => {
-            console.log(response.users);
-            var userinfo = response.users.map((user) => {
-                var info = `<div class='well'>
+    function getUsers() {
+        $.get('../api/?/user')
+            .then((response) => {
+                console.log(response.users);
+                var userinfo = response.users.map((user) => {
+                    var info = `<div class='well users'>
                             <ul>
                             <li>${user.name}</li>
                             <li>${user.address}</li>
@@ -62,12 +62,12 @@ $(document).ready(function () {
 
                             </div>`;
 
-                return info;
+                    return info;
+                });
+
+                $('#admin-users').html(userinfo);
             });
-
-            $('#admin-users').html(userinfo);
-        });
-
+    }
     /*POST----users-------------------------------*/
     $('#saveUser').on('click', () => {
         var users = {
@@ -77,42 +77,51 @@ $(document).ready(function () {
             email: $('#email').val()
         };
         $.post('../api/?/user', users)
-            .then((response) => {
-                var userinfo = [];
-                userinfo.push(response);
-                var users = userinfo.map((user) => {
-                    var info = `<div class='well'>
-                            <ul>
-                            <li>${user.name}</li>
-                            <li>${user.address}</li>
-                            <li>${user.phone}</li>
-                            <li>${user.email}</li>
-                            </ul>
-                            <input type='hidden' value='${user.id}'>
-                            <button class='btn btn-info btn-sm'>ändra</button>
-                            <button class='btn btn-danger btn-sm delete'>radera användare</button>
-                            </div>`;
+            .then(() => {
+                getUsers();
+                /*  console.log(response);
+                  var userinfo = [];
+                  userinfo.push(response);
+                  var users = userinfo.map((user) => {
+                      var info = `<div class='well'>
+                          <ul>
+                          <li>${user.name}</li>
+                          <li>${user.address}</li>
+                          <li>${user.phone}</li>
+                          <li>${user.email}</li>
+                          </ul>
+                          <input type='hidden' value='${user.id}'>
+                          <button class='btn btn-info btn-sm'>ändra</button>
+                          <button class='btn btn-danger btn-sm delete'>radera användare</button>
+                          </div>`;
 
-                    return info;
-                });
-                $('#admin-users').append(users);
+                      return info;
+                  });
+                  console.log(users);
+                  $('#admin-users').append(users);*/
             });
+        var inputs = document.querySelectorAll('input[type=text]');
+        Array.from(inputs).map(inp => inp.value = "");
     });
 
     /*DELETE----user------------------------------*/
     $('.container').on('click', '.delete', function () {
 
-        let id = this.parentNode.childNodes[3].value;
-
+        var id = this.parentNode.childNodes[3].value;
+        var wells = Array.from(document.querySelectorAll('.users'));
+        console.log(id);
         $.ajax({
             url: "../api/?/user/" + id,
             method: "DELETE"
-
         }).then((response) => {
 
-            var remainder = Array.from(response).filter(user => user.id !== id)
-            console.log(remainder);
+            var remainder = wells.filter((user) => {
+                let userId = user.querySelector('input[type=hidden]').value;
+                return userId !== id;
+            });
+
             $('#admin-users').html(remainder);
+
         });
     });
 
