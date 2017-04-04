@@ -20,8 +20,8 @@ $(document).ready(function () {
             data: {
                 mytext: text,
             },
-            success: (result) => {
-                console.log(result.mytext);
+            success: () => {
+                $('.alert-success').show().fadeOut(3000);
             }
         });
     });
@@ -57,7 +57,7 @@ $(document).ready(function () {
                             </ul>
 
                             <input type='hidden' value='${user.id}'>
-                            <button class='btn btn-info btn-sm'>ändra</button>
+                            <button class='btn btn-info btn-sm edit'>ändra</button>
                             <button class='btn btn-danger btn-sm delete'>radera användare</button>
 
                             </div>`;
@@ -105,6 +105,11 @@ $(document).ready(function () {
             $('#admin-users').html(remainder);
 
         });
+    });
+
+    /*PUT----edit user----------------------------*/
+    $('.container').on('click', '.edit', function () {
+
     });
 
 });

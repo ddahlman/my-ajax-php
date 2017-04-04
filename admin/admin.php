@@ -10,4 +10,5 @@
       <button class='btn btn-danger btn-sm' id='delete-text'>ta bort</button>
     </div>
   </div>
+  <div class='alert alert-success'><strong>Din text är sparad!</strong></div>
 </div>
