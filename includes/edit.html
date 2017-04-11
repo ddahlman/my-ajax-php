@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class='container'>
+        <div class='well'>
+            <h1>Ändra din text</h1>
+            <div class='form-group'>
+                <label class='control-label' for="name">Namn</label>
+
+                <input class='form-control' id='fullName' name='name' type="text">
+            </div>
+            <div class='form-group'>
+                <label class='control-label' for="address">Adress</label>
+                <input class='form-control' id='address' name='address' type="text">
+            </div>
+            <div class='form-group'>
+                <label class='control-label' for="phone">Telefon</label>
+                <input class='form-control' id='phone' name='phone' type="text">
+            </div>
+            <div class='form-group'>
+                <label class='control-label' for="email">E-mail</label>
+                <input class='form-control' id='email' name='email' type="text">
+            </div>
+            <button id='saveChanges' class='btn btn-info btn-sm'>spara ändringar</button>
+            <button id='clear' class='btn btn-danger btn-sm'>rensa</button>
+        </div>
+    </div>
+</body>
+<script src='../js/jquery-3.1.1.min.js'></script>
+<script src='../js/admin-ajax.js'></script>
+
+</html>

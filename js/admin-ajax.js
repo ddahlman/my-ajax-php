@@ -109,7 +109,18 @@ $(document).ready(function () {
 
     /*PUT----edit user----------------------------*/
     $('.container').on('click', '.edit', function () {
+        var arr = [];
+        var values = [...this.parentNode.childNodes];
+        var li = values[1].children;
+        console.log(li);
+        arr.push(li);
+        var val = Array.prototype.map.call(li, (el) => {
+            var val = el.innerHTML;
+            return val;
+        });
 
+        console.log(val);
+        window.location = '../includes/edit.html';
     });
 
 });
