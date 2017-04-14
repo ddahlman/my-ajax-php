@@ -107,20 +107,48 @@ $(document).ready(function () {
         });
     });
 
-    /*PUT----edit user----------------------------*/
+    /*Edit window----edit user----------------------------*/
     $('.container').on('click', '.edit', function () {
-        var arr = [];
-        var values = [...this.parentNode.childNodes];
-        var li = values[1].children;
-        console.log(li);
-        arr.push(li);
-        var val = Array.prototype.map.call(li, (el) => {
+        var id = this.parentNode.childNodes[3].value;
+        var childs = [...this.parentNode.childNodes];
+        var li = childs[1].children;
+
+        var values = Array.prototype.map.call(li, (el) => {
             var val = el.innerHTML;
             return val;
         });
 
-        console.log(val);
-        window.location = '../includes/edit.html';
+        values.push(id);
+
+        console.log(values);
+        window.location = '../includes/edit.php?edit=' + values;
+
     });
 
+    /*PUT------edit user---------------------------------------*/
+    $('#saveEdit').on('click', function () {
+
+        var name = $('#editName').val();
+        var address = $('#editAddress').val();
+        var phone = $('#editPhone').val();
+        var email = $('#editEmail').val();
+        var id = this.parentNode.childNodes[11].value;
+        $.ajax({
+            url: "../api/?/user/" + id,
+            method: "PUT",
+            data: {
+                name: name,
+                address: address,
+                phone: phone,
+                email: email
+            },
+            success: () => {
+                $('.alert-success').show().fadeOut(3000);
+            }
+        });
+    });
+
+    $('#goback').on('click', () => {
+        window.location = '../admin/admin_index.php?page=users';
+    });
 });
